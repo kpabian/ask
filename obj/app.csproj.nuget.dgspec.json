@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/katarzynapabian/app/app.csproj": {}
+    "/Users/katarzynapabian/Documents/GitHub/ask/app.csproj": {}
   },
   "projects": {
-    "/Users/katarzynapabian/app/app.csproj": {
+    "/Users/katarzynapabian/Documents/GitHub/ask/app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/katarzynapabian/app/app.csproj",
+        "projectUniqueName": "/Users/katarzynapabian/Documents/GitHub/ask/app.csproj",
         "projectName": "app",
-        "projectPath": "/Users/katarzynapabian/app/app.csproj",
+        "projectPath": "/Users/katarzynapabian/Documents/GitHub/ask/app.csproj",
         "packagesPath": "/Users/katarzynapabian/.nuget/packages/",
-        "outputPath": "/Users/katarzynapabian/app/obj/",
+        "outputPath": "/Users/katarzynapabian/Documents/GitHub/ask/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/katarzynapabian/.nuget/NuGet/NuGet.Config"
