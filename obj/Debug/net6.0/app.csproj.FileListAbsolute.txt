@@ -1,0 +1,15 @@
+/Users/katarzynapabian/app/bin/Debug/net6.0/app
+/Users/katarzynapabian/app/bin/Debug/net6.0/app.deps.json
+/Users/katarzynapabian/app/bin/Debug/net6.0/app.runtimeconfig.json
+/Users/katarzynapabian/app/bin/Debug/net6.0/app.dll
+/Users/katarzynapabian/app/bin/Debug/net6.0/app.pdb
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.csproj.AssemblyReference.cache
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.GeneratedMSBuildEditorConfig.editorconfig
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.AssemblyInfoInputs.cache
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.AssemblyInfo.cs
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.csproj.CoreCompileInputs.cache
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.dll
+/Users/katarzynapabian/app/obj/Debug/net6.0/refint/app.dll
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.pdb
+/Users/katarzynapabian/app/obj/Debug/net6.0/app.genruntimeconfig.cache
+/Users/katarzynapabian/app/obj/Debug/net6.0/ref/app.dll
