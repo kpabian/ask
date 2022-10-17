@@ -58,6 +58,7 @@ void Choose(string[] registers)
         Console.WriteLine("1 - wypisz wartosci w rejestrach");
         Console.WriteLine("2 - MOV");
         Console.WriteLine("3 - ADD");
+        Console.WriteLine("4 - SUB");
 
         int num = int.Parse(Console.ReadLine());
 
@@ -78,6 +79,10 @@ void Choose(string[] registers)
 
             case 3:
                 Add(registers, registers_names);
+                break;
+
+            case 4:
+                Sub(registers, registers_names);
                 break;
         }
     }
@@ -222,8 +227,6 @@ void Add(string[] registers, string[] registers_names)
     int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
     int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
 
-    Console.WriteLine(value1);
-    Console.WriteLine(value2);
     int value = value1 + value2;
 
 
@@ -235,4 +238,45 @@ void Add(string[] registers, string[] registers_names)
     registers[a] = hex;
 
     Console.WriteLine($"Po dodaniu rejestru {registers_names[a]} = {first} do rejestru {registers_names[b]} = {second} otrzymujemy {registers[a]}. ");
+}
+
+void Sub(string[] registers, string[] registers_names)
+{
+    Console.Write("Odjemna: ");
+    string x = NameCheck();
+    int a = 0;
+    while (registers_names[a] != x)
+    {
+        a++;
+    }
+    string first = registers[a];
+
+    Console.Write("Odjemnik: ");
+    string y = NameCheck();
+    int b = 0;
+    while (registers_names[b] != y)
+    {
+        b++;
+    }
+    string second = registers[b];
+
+    int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
+    int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
+
+    if (value1 < value2 )
+        Console.WriteLine("Nie obsluguje liczb ujemnych");
+
+    else
+    {
+        int value = value1 - value2;
+
+        string hex = value.ToString("X");
+
+        registers[a] = hex;
+
+        Console.WriteLine($"Odjemna ({registers_names[a]}) = {first}, odjemnik ({registers_names[b]}) = {second}, roznica ({registers_names[a]}) = {hex}.");
+
+    }
+    
+
 }
