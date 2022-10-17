@@ -40,11 +40,48 @@ registers[7] = RegisterCheck();
 
 ReadRegisters(registers);
 
-Mov(registers);
-
-ReadRegisters(registers);
+Choose(registers);
 
 
+
+
+
+//-------------- funkcje pomocnicze ------------------
+
+void Choose(string[] registers)
+{
+    while (true)
+    {
+        Console.WriteLine(" ");
+        Console.WriteLine("Wybierz jakie polecenie ma zostac wykonane:");
+        Console.WriteLine("0 - wyjdz z programu");
+        Console.WriteLine("1 - wypisz wartosci w rejestrach");
+        Console.WriteLine("2 - MOV");
+        Console.WriteLine("3 - ADD");
+
+        int num = int.Parse(Console.ReadLine());
+
+        if (num == 0)
+        {
+            break;
+        }
+
+        switch (num)
+        {
+            case 1:
+                ReadRegisters(registers);
+                break;
+
+            case 2:
+                Mov(registers);
+                break;
+
+            case 3:
+                Add(registers, registers_names);
+                break;
+        }
+    }
+}
 
 string RegisterCheck()
 {
@@ -157,5 +194,45 @@ string NameCheck()
 void ReadRegisters(string[] registers)
 {
     Console.WriteLine($"AL= {registers[0]}, AH= {registers[1]}, BL= {registers[2]}, BH= {registers[3]}, CL= {registers[4]}, CH= {registers[5]}, DL= {registers[6]}, DH= {registers[7]}");
+    Thread.Sleep(1000);
 }
     
+void Add(string[] registers, string[] registers_names)
+{
+
+    Console.Write("Pierwszy skladnik dodawania: ");
+    string x = NameCheck();
+    int a = 0;
+    while (registers_names[a] != x)
+    {
+        a++;
+    }
+    string first = registers[a];
+
+    Console.Write("Drugi skladnik dodawania: ");
+    string y = NameCheck();
+    int b = 0;
+    while (registers_names[b] != y)
+    {
+        b++;
+    }
+    string second = registers[b];
+
+
+    int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
+    int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
+
+    Console.WriteLine(value1);
+    Console.WriteLine(value2);
+    int value = value1 + value2;
+
+
+    string hex = value.ToString("X");
+   
+
+    
+
+    registers[a] = hex;
+
+    Console.WriteLine($"Po dodaniu rejestru {registers_names[a]} = {first} do rejestru {registers_names[b]} = {second} otrzymujemy {registers[a]}. ");
+}
