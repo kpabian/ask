@@ -1,4 +1,4 @@
-﻿string[] registers = new string[8];
+string[] registers = new string[8];
 string[] registers_names = new string[8];
 
 registers_names[0] = "AL";
@@ -59,6 +59,7 @@ void Choose(string[] registers)
         Console.WriteLine("2 - MOV");
         Console.WriteLine("3 - ADD");
         Console.WriteLine("4 - SUB");
+        Console.WriteLine("5 - XCHG");
 
         int num = int.Parse(Console.ReadLine());
 
@@ -83,6 +84,10 @@ void Choose(string[] registers)
 
             case 4:
                 Sub(registers, registers_names);
+                break;
+
+            case 5:
+                Xchg(registers, registers_names);
                 break;
         }
     }
@@ -205,7 +210,7 @@ void ReadRegisters(string[] registers)
 void Add(string[] registers, string[] registers_names)
 {
 
-    Console.Write("Pierwszy skladnik dodawania: ");
+    Console.Write("Pierwsza liczba: ");
     string x = NameCheck();
     int a = 0;
     while (registers_names[a] != x)
@@ -214,7 +219,7 @@ void Add(string[] registers, string[] registers_names)
     }
     string first = registers[a];
 
-    Console.Write("Drugi skladnik dodawania: ");
+    Console.Write("Druga liczba: ");
     string y = NameCheck();
     int b = 0;
     while (registers_names[b] != y)
@@ -227,7 +232,10 @@ void Add(string[] registers, string[] registers_names)
     int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
     int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
 
-    int value = value1 + value2;
+    
+
+
+    int value =value1 + value2;
 
 
     string hex = value.ToString("X");
@@ -239,6 +247,7 @@ void Add(string[] registers, string[] registers_names)
 
     Console.WriteLine($"Po dodaniu rejestru {registers_names[a]} = {first} do rejestru {registers_names[b]} = {second} otrzymujemy {registers[a]}. ");
 }
+
 
 void Sub(string[] registers, string[] registers_names)
 {
@@ -261,7 +270,7 @@ void Sub(string[] registers, string[] registers_names)
     string second = registers[b];
 
     int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
-    int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
+    int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber); 
 
     if (value1 < value2 )
         Console.WriteLine("Nie obsluguje liczb ujemnych");
@@ -278,5 +287,95 @@ void Sub(string[] registers, string[] registers_names)
 
     }
     
-
+    
 }
+
+void Xchg (string[] registers, string[] registers_names)
+    {
+        Console.Write("Podaj nazwe pierwszego rejestru: ");
+        string first = NameCheck();
+        Console.WriteLine("Podaj nazwe drugiego rejestru: ");
+        string second = NameCheck();
+
+        int x = -1;
+
+        switch (first)
+        {
+            case "AL" :
+                x = 0;
+                break;
+        
+            case "AH" :
+                x = 1;
+                break;
+
+        
+            case "BL" :
+                x = 2;
+                break;
+
+            case "BH" :
+                x = 3;
+                break;
+        
+            case "CL" :
+                x = 4;
+                break;
+        
+            case "CH" :
+                x = 5;
+                break;
+        
+            case "DL" :
+                x = 6;
+                break;
+        
+            case "DH" :
+                x = 7;
+                break;
+        }
+
+        int y = -1;
+
+        switch (second)
+        {
+            case "AL" :
+                y = 0;
+                break;
+        
+            case "AH" :
+                y = 1;
+                break;
+
+        
+            case "BL" :
+                y = 2;
+                break;
+
+            case "BH" :
+                y = 3;
+                break;
+        
+            case "CL" :
+                y = 4;
+                break;
+        
+            case "CH" :
+                y = 5;
+                break;
+        
+            case "DL" :
+                y = 6;
+                break;
+        
+            case "DH" :
+                y = 7;
+                break;
+        }
+
+        string val = registers[x];
+        registers[x] = registers[y];
+        registers[y] = val;
+        
+        Console.WriteLine($"Po zamianie wartości w rejestrach {registers_names[x]} = {registers[x]}, a {registers_names[y]} = {registers[y]}");
+    }
