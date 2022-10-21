@@ -1,4 +1,4 @@
-string[] registers = new string[8];
+﻿string[] registers = new string[8];
 string[] registers_names = new string[8];
 
 registers_names[0] = "AL";
@@ -96,7 +96,7 @@ void Choose(string[] registers)
 string RegisterCheck()
 {
     string x = Console.ReadLine();
-    while ((x[0] < '0' || (x[0] > '9' && x[0] < 'A') || x[0] > 'F') /*2 przypadek*/ || (x[1] < '0' || (x[1] > '9' && x[1] < 'A') || x[1] > 'F') /*3 przypadek*/ || (x.Length != 2))
+    while ((x.Length != 2) || (x[0] < '0' || (x[0] > '9' && x[0] < 'A') || x[0] > 'F') || (x[1] < '0' || (x[1] > '9' && x[1] < 'A') || x[1] > 'F'))
     {
         Console.Write("Blednie podana wartosc. Podaj zawartosc rejestru: ");
         x = Console.ReadLine();
