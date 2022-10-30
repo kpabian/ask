@@ -1,27 +1,5 @@
-﻿
-
-    string[] registers = new string[8];
-    string[] registers_names = new string[8];
-
-    registers_names[0] = "AL";
-    registers_names[1] = "AH";
-    registers_names[2] = "BL";
-    registers_names[3] = "BH";
-    registers_names[4] = "CL";
-    registers_names[5] = "CH";
-    registers_names[6] = "DL";
-    registers_names[7] = "DH";
-
-    registers[0] = "01";
-    registers[1] = "02";
-    registers[2] = "03";
-    registers[3] = "04";
-    registers[4] = "05";
-    registers[5] = "06";
-    registers[6] = "07";
-    registers[7] = "08";
-
-    //pobieram wartości rejestrów
+    string[] registers = new string[8] {"00", "00", "00", "00", "00", "00", "00", "00" };
+    string[] registers_names = new string[8] {"AL", "AH", "BL", "BH", "CL", "CH", "DL", "DH" };
 
     Console.Write("Podaj zawartość rejestru AL: ");
     registers[0] = RegisterCheck();
@@ -40,13 +18,11 @@
     Console.Write("Podaj zawartość rejestru DH: ");
     registers[7] = RegisterCheck();
 
+    Not(registers, registers_names);
+
     ReadRegisters(registers);
 
     Choose(registers);
-
-    
-
-
 
     //-------------- funkcje pomocnicze ------------------
 
@@ -56,14 +32,12 @@
         {
             Console.WriteLine(" ");
             Console.WriteLine("Wybierz jakie polecenie ma zostac wykonane:");
-            Console.WriteLine("0 - wyjdz z programu, 1 - wypisz wartosci w rejestrach, 2 - MOV, 3 - ADD, 4 - SUB, 5 - XCHG, 6 - INC, 7 - DEC");
+            Console.WriteLine("0 - wyjdz z programu, 1 - wypisz wartosci w rejestrach, 2 - MOV, 3 - ADD, 4 - SUB, 5 - XCHG, 6 - INC, 7 - DEC, 8 - AND, 9 - OR, 10 - XOR, 11 - NOT");
 
             int num = int.Parse(Console.ReadLine());
 
             if (num == 0)
-            {
                 break;
-            }
 
             switch (num)
             {
@@ -94,6 +68,23 @@
                 case 7:
                     Dec(registers, registers_names);
                     break;
+
+                case 8:
+                    And(registers, registers_names);
+                    break;
+                
+                case 9:
+                    Or(registers, registers_names);
+                    break;
+
+                case 10:
+                    Xor(registers, registers_names);
+                    break;
+
+                case 11:
+                    Not(registers, registers_names);
+                    break;
+
             }
         }
     }
@@ -128,7 +119,6 @@
                 x = registers[1];
                 break;
 
-            
             case "BL" :
                 x = registers[2];
                 break;
@@ -164,7 +154,6 @@
                 registers[1] = x;
                 break;
 
-            
             case "BL" :
                 registers[2] = x;
                 break;
@@ -215,35 +204,27 @@
         string x = NameCheck();
         int a = 0;
         while (registers_names[a] != x)
-        {
             a++;
-        }
+        
         string first = registers[a];
 
         Console.Write("Druga liczba: ");
         string y = NameCheck();
         int b = 0;
         while (registers_names[b] != y)
-        {
             b++;
-        }
+    
         string second = registers[b];
-
 
         int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
         int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
 
-        
+        int value = value1 + value2;
 
-
-        int value =value1 + value2;
-
+        if( value > 255)
+            value -= 255;
 
         string hex = value.ToString("X");
-    
-
-        
-
         registers[a] = hex;
 
         Console.WriteLine($"Po dodaniu rejestru {registers_names[a]} = {first} do rejestru {registers_names[b]} = {second} otrzymujemy {registers[a]}. ");
@@ -255,39 +236,33 @@
         string x = NameCheck();
         int a = 0;
         while (registers_names[a] != x)
-        {
             a++;
-        }
+
         string first = registers[a];
 
         Console.Write("Odjemnik: ");
         string y = NameCheck();
         int b = 0;
         while (registers_names[b] != y)
-        {
             b++;
-        }
+        
         string second = registers[b];
 
         int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
         int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber); 
+        int value;
 
         if (value1 < value2 )
-            Console.WriteLine("Nie obsluguje liczb ujemnych");
+            value = 255 - (value1 - value2);
 
         else
         {
-            int value = value1 - value2;
-
+            value = value1 - value2;
             string hex = value.ToString("X");
-
             registers[a] = hex;
 
             Console.WriteLine($"Odjemna ({registers_names[a]}) = {first}, odjemnik ({registers_names[b]}) = {second}, roznica ({registers_names[a]}) = {hex}.");
-
         }
-        
-        
     }
 
     void Xchg (string[] registers, string[] registers_names)
@@ -380,67 +355,71 @@
             Console.WriteLine($"Po zamianie wartości w rejestrach {registers_names[x]} = {registers[x]}, a {registers_names[y]} = {registers[y]}");
         }
 
-    void Not(string[] registers, string[] registers_names)   //nie działa
+    void Not(string[] registers, string[] registers_names) 
     {
         Console.Write("Podaj nazwę rejestru: ");
         string register = NameCheck();
 
         string x = "-1";
+        int i = -1;
 
         switch (register)
         {
             case "AL" :
                 x = registers[0];
+                i = 0;
                 break;
             
             case "AH" :
                 x = registers[1];
+                i = 1;
                 break;
 
             
             case "BL" :
                 x = registers[2];
+                i = 2;
                 break;
 
             case "BH" :
                 x = registers[3];
+                i = 3;
                 break;
             
             case "CL" :
                 x = registers[4];
+                i = 4;
                 break;
             
             case "CH" :
                 x = registers[5];
+                i = 5;
                 break;
             
             case "DL" :
                 x = registers[6];
+                i = 6;
                 break;
             
             case "DH" :
                 x = registers[7];
+                i = 7;
                 break;
         }
-    
-        
-        string binaryText = Convert.ToString(Convert.ToInt32(x, 16), 2);
-        char[] a = new char[8] {'1', '1', '1', '1', '1', '1', '1', '1'};
 
-    for (int i = 0; binaryText.Length > i ; i++)
-    {
-            if (binaryText[i] == '1')
-            {
-                a[8 - binaryText.Length + i] = '0';
-            }
+        int value = Int32.Parse(x, System.Globalization.NumberStyles.HexNumber);
+
+        int pom = 128, number = 0;
+        while(pom != 0) {
+            if(value >= pom)
+                value -= pom;
             else
-            {
-                a[8 - binaryText.Length + i] = '1';
-            }
-    }
-    //int x = 2;
-    //string hex = Convert.ToInt32(a, x).value.ToString("X");
-    
+                number += pom;
+            pom /= 2;
+        }
+
+        string hex = value.ToString("X");
+        registers[i] = hex;
     }
 
     void Inc(string[] registers, string[] registers_names)
@@ -498,7 +477,7 @@
 
     }
 
-    void And(string[] registers, string[] registers_names)  //nie ma
+    void And(string[] registers, string[] registers_names) 
     {
         Console.Write("Wartość pierwszego rejestru: ");
         string first = NameCheck();
@@ -506,34 +485,89 @@
         string second = NameCheck();
 
         int a = 0;
-        while (registers_names[a] != register)
+        while (registers_names[a] != first)
             a++;
     
-        string first = registers[a];
+        first = registers[a];
 
         int b = 0;
-        while (registers_names[b] != register)
+        while (registers_names[b] != second)
             b++;
     
-        string second = registers[b];
+        second = registers[b];
 
         int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
         int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
 
-        
+        int value = value1 & value2;
+        string hex = value.ToString("X");
 
+        if(hex.Length == 1)
+            hex = "0" + hex;
 
-
-
-
+        registers[a] = hex;
     }
 
-    void Or(string[] registers, string[] registers_names)  //nie ma
+    void Or(string[] registers, string[] registers_names) 
     {
+        Console.Write("Wartość pierwszego rejestru: ");
+        string first = NameCheck();
+        Console.Write("Wartość drugiego rejestru: ");
+        string second = NameCheck();
 
+        int a = 0;
+        while (registers_names[a] != first)
+            a++;
+    
+        first = registers[a];
+
+        int b = 0;
+        while (registers_names[b] != second)
+            b++;
+    
+        second = registers[b];
+
+        int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
+        int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
+
+        int value = value1 | value2;
+        string hex = value.ToString("X");
+
+        if(hex.Length == 1)
+            hex = "0" + hex;
+
+        registers[a] = hex;
     }
 
-    void Xor(string[] registers, string[] registers_names)  //nie ma
+    void Xor(string[] registers, string[] registers_names)  
     {
+        Console.Write("Wartość pierwszego rejestru: ");
+        string first = NameCheck();
+        Console.Write("Wartość drugiego rejestru: ");
+        string second = NameCheck();
+
+        int a = 0;
+        while (registers_names[a] != first)
+            a++;
+    
+        first = registers[a];
+
+        int b = 0;
+        while (registers_names[b] != second)
+            b++;
+    
+        second = registers[b];
+
+        int value1 = Int32.Parse(first, System.Globalization.NumberStyles.HexNumber);
+        int value2 = Int32.Parse(second, System.Globalization.NumberStyles.HexNumber);
+
+        int value = value1 ^ value2;
+
+        string hex = value.ToString("X");
+
+        if(hex.Length == 1)
+            hex = "0" + hex;
+
+        registers[a] = hex;
 
     }
