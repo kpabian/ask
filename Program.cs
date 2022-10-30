@@ -1,23 +1,7 @@
-﻿string[] registers = new string[8];
-string[] registers_names = new string[8];
+﻿string[] registers = new string[8] {"01", "02", "03", "04", "05", "06", "07", "08"};
+string[] registers_names =  {"AL", "AH", "BL", "BH", "CL", "CH", "DL", "DH"};
 
-registers_names[0] = "AL";
-registers_names[1] = "AH";
-registers_names[2] = "BL";
-registers_names[3] = "BH";
-registers_names[4] = "CL";
-registers_names[5] = "CH";
-registers_names[6] = "DL";
-registers_names[7] = "DH";
 
-registers[0] = "01";
-registers[1] = "02";
-registers[2] = "03";
-registers[3] = "04";
-registers[4] = "05";
-registers[5] = "06";
-registers[6] = "07";
-registers[7] = "08";
 
 //pobieram wartości rejestrów
 
@@ -41,9 +25,6 @@ registers[7] = RegisterCheck();
 ReadRegisters(registers);
 
 Choose(registers);
-
-
-
 
 
 //-------------- funkcje pomocnicze ------------------
